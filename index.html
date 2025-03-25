@@ -1,0 +1,599 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Harini R - Portfolio</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Arial', sans-serif;
+        }
+
+        body {
+            line-height: 1.6;
+            color: #333;
+            background-color: #F0F7F7;
+        }
+
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: #1C2526;
+            padding: 1rem 2rem;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+        }
+
+        .nav-links {
+            list-style: none;
+            display: flex;
+        }
+
+        .nav-links li {
+            margin: 0 1.5rem;
+        }
+
+        .nav-links a {
+            color: #F7FFF7;
+            text-decoration: none;
+            font-size: 1.1rem;
+            transition: color 0.3s;
+        }
+
+        .nav-links a:hover {
+            color: #FF6F61;
+        }
+
+        section {
+            padding: 6rem 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.6s ease, transform 0.6s ease;
+        }
+
+        section.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        #home {
+            background: #1C2526;
+            color: #F7FFF7;
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: left;
+            padding: 0 2rem;
+        }
+
+        .hero {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            max-width: 1200px;
+            width: 100%;
+        }
+
+        .hero-text {
+            max-width: 50%;
+        }
+
+        .hero-text h1 {
+            font-size: 3.5rem;
+            margin-bottom: 1rem;
+            color: #FF6F61;
+        }
+
+        .hero-text p {
+            font-size: 1.2rem;
+            color: #F7FFF7;
+            margin-bottom: 2rem;
+        }
+
+        .hero-text .intro {
+            font-size: 1.5rem;
+            color: #F7FFF7;
+            margin-bottom: 0.5rem;
+        }
+
+        .profile-img {
+            width: 300px;
+            height: 300px;
+            border-radius: 50%;
+            border: 5px solid transparent;
+            box-shadow: 0 0 20px rgba(255, 111, 97, 0.5), 0 0 40px rgba(26, 83, 92, 0.5);
+            transition: transform 0.3s;
+        }
+
+        .profile-img:hover {
+            transform: scale(1.05);
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 0.8rem 2rem;
+            background: #FF6F61;
+            color: #F7FFF7;
+            text-decoration: none;
+            border-radius: 25px;
+            font-weight: bold;
+            transition: transform 0.3s, background 0.3s;
+        }
+
+        .btn:hover {
+            transform: scale(1.05);
+            background: #1A535C;
+        }
+
+        h2 {
+            font-size: 2.2rem;
+            color: #1A535C;
+            margin-bottom: 2rem;
+            position: relative;
+        }
+
+        h2::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 50px;
+            height: 3px;
+            background: #FF6F61;
+        }
+
+        #about p {
+            font-size: 1.1rem;
+            color: #555;
+            max-width: 800px;
+            margin: 0 auto;
+            line-height: 1.8;
+        }
+
+        .timeline {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .timeline-item {
+            background: #F7FFF7;
+            padding: 2rem;
+            margin: 1.5rem 0;
+            border-radius: 10px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            text-align: left;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .timeline-item:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 6px 20px rgba(0,0,0,0.15);
+        }
+
+        .timeline-item h3 {
+            color: #1A535C;
+            margin-bottom: 0.5rem;
+        }
+
+        .timeline-item p {
+            color: #666;
+        }
+
+        .project-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 2rem;
+        }
+
+        .project-card {
+            background: #F7FFF7;
+            padding: 2rem;
+            border-radius: 10px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .project-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 6px 20px rgba(0,0,0,0.15);
+        }
+
+        .project-card h3 {
+            color: #1A535C;
+            margin-bottom: 0.5rem;
+        }
+
+        .project-card p {
+            color: #666;
+            margin-bottom: 1rem;
+        }
+
+	.hero-buttons {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+        .project-card span {
+            color: #FF6F61;
+            font-size: 0.9rem;
+            font-weight: bold;
+        }
+
+        /* Updated Skills Section */
+        .skills-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 3rem;
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        .skills-technical, .skills-soft {
+            flex: 1;
+            min-width: 300px;
+        }
+
+        .skills-technical h3, .skills-soft h3 {
+            color: #1A535C;
+            margin-bottom: 1.5rem;
+            text-align: center;
+        }
+
+        .skills-technical-grid, .skills-soft-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .technical-skill, .soft-skill {
+            background: #F7FFF7;
+            padding: 1.5rem;
+            border-radius: 8px;
+            text-align: center;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .technical-skill:hover, .soft-skill:hover {
+            transform: scale(1.05);
+            box-shadow: 0 4px 15px rgba(26, 83, 92, 0.2);
+        }
+
+        .technical-skill i, .soft-skill i {
+            font-size: 2rem;
+            color: #FF6F61;
+            margin-bottom: 0.5rem;
+        }
+
+        .technical-skill p, .soft-skill p {
+            color: #666;
+            font-weight: bold;
+        }
+
+        /* Certifications Section */
+        .certifications-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 2rem;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .certification-card {
+            background: #F7FFF7;
+            padding: 2rem;
+            border-radius: 10px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .certification-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 6px 20px rgba(0,0,0,0.15);
+        }
+
+        .certification-card h3 {
+            color: #1A535C;
+            margin-bottom: 0.5rem;
+        }
+
+        .certification-card p {
+            color: #666;
+            margin-bottom: 0.5rem;
+        }
+
+        .certification-card span {
+            color: #FF6F61;
+            font-size: 0.9rem;
+            font-weight: bold;
+        }
+
+        #contact form {
+            max-width: 700px;
+            margin: 0 auto 2rem;
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+
+        #contact input, #contact textarea {
+            padding: 1rem;
+            border: 2px solid #1A535C;
+            border-radius: 5px;
+            font-size: 1rem;
+            transition: border-color 0.3s;
+        }
+
+        #contact input:focus, #contact textarea:focus {
+            border-color: #FF6F61;
+            outline: none;
+        }
+
+        #contact textarea {
+            height: 150px;
+        }
+
+        .contact-info {
+            text-align: center;
+        }
+
+        .contact-info p {
+            margin: 1rem 0;
+            color: #666;
+        }
+
+        .contact-info i {
+            margin-right: 0.5rem;
+            color: #FF6F61;
+        }
+
+        .contact-info a {
+            color: #1A535C;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        .contact-info a:hover {
+            color: #FF6F61;
+        }
+
+        footer {
+            padding: 2rem;
+            background: #1A535C;
+            color: #F7FFF7;
+            text-align: center;
+            font-size: 1rem;
+        }
+    </style>
+</head>
+<body>
+    <!-- Navbar -->
+    <nav>
+        <ul class="nav-links">
+            <li><a href="#home">Home</a></li>
+            <li><a href="#about">About</a></li>
+            <li><a href="#education">Education</a></li>
+            <li><a href="#projects">Projects</a></li>
+            <li><a href="#skills">Skills</a></li>
+            <li><a href="#certifications">Certifications</a></li>
+            <li><a href="#contact">Contact</a></li>
+        </ul>
+    </nav>
+
+    <!-- Home Section -->
+<section id="home">
+    <div class="hero">
+        <div class="hero-text">
+            <p class="intro">Hello, It's Me</p>
+            <h1>Harini R</h1>
+            <p>I'm a Software Developer with expertise in Python, SQL, and Power BI. I’m passionate about solving complex problems and delivering innovative solutions.</p>
+            <div class="hero-buttons">
+                <a href="#contact" class="btn">Get in Touch</a>
+                <a href="resume.pdf" download class="btn" style="margin-left: 1rem;">Download Resume</a>
+            </div>
+        </div>
+        <img src="harini.jpg" alt="Harini R" class="profile-img">
+    </div>
+</section>
+
+    <!-- About Section -->
+    <section id="about">
+        <h2>About Me</h2>
+        <p>I am a dedicated and passionate software developer currently pursuing a B.Tech in Information Technology at Sastra Deemed To Be University, Thanjavur. With a strong foundation in computer science, I specialize in Python, SQL, and data visualization tools like Power BI, which I’ve honed through various academic projects and self-driven learning initiatives. My journey in technology has been fueled by a curiosity to solve real-world problems through innovative solutions, whether it’s developing secure systems like my Image Steganography project or analyzing data trends in my Adidas Sales Analysis using Power BI.<p>
+<p>Beyond technical skills, I pride myself on my ability to work collaboratively, manage time effectively, and approach challenges with a problem-solving mindset. I’ve cultivated these soft skills through group projects, internships, and extracurricular activities, where I’ve learned the importance of communication and teamwork in delivering successful outcomes. I am eager to contribute my skills to a dynamic organization where I can continue to grow, learn new technologies, and make a meaningful impact while advancing my career in software development.</p>
+    </section>
+
+    <!-- Education Section -->
+    <section id="education">
+        <h2>Education</h2>
+        <div class="timeline">
+            <div class="timeline-item">
+                <h3>B.Tech Information Technology</h3>
+                <p>Sastra Deemed To Be University, Thanjavur</p>
+                <p>2021 - 2025 | CGPA: 8.15</p>
+            </div>
+            <div class="timeline-item">
+                <h3>Class XII</h3>
+                <p>Sacred Heart Girls' Higher Secondary School, Thanjavur</p>
+                <p>2021 | 88.3%</p>
+            </div>
+            <div class="timeline-item">
+                <h3>Class X</h3>
+                <p>Nav Bharat Matric Higher Secondary School, Thanjavur</p>
+                <p>2019 | 84.8%</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Projects Section -->
+    <section id="projects">
+        <h2>Projects</h2>
+        <div class="project-grid">
+            <div class="project-card">
+                <h3>Image Steganography</h3>
+                <p>Developed a Python-based technique for enhanced security using chaotic encryption.</p>
+                <span>March 2024</span>
+            </div>
+            <div class="project-card">
+                <h3>Adidas Sales Analysis</h3>
+                <p>Analyzed sales data with Power BI to identify trends and create visualizations.</p>
+                <span>June 2024</span>
+            </div>
+            <div class="project-card">
+                <h3>YouTube Channel Analysis</h3>
+                <p>Used Python and ML to analyze performance and predict engagement patterns.</p>
+                <span>July 2024</span>
+            </div>
+        </div>
+    </section>
+
+   <!-- Updated Skills Section -->
+<section id="skills">
+    <h2>Skills</h2>
+    <div class="skills-container">
+        <!-- Technical Skills with Icons -->
+        <div class="skills-technical">
+            <h3>Technical Skills</h3>
+            <div class="skills-technical-grid">
+                <div class="technical-skill">
+                    <i class="fab fa-python"></i>
+                    <p>Python</p>
+                </div>
+                <div class="technical-skill">
+                    <i class="fas fa-database"></i>
+                    <p>SQL</p>
+                </div>
+                <div class="technical-skill">
+                    <i class="fas fa-code"></i>
+                    <p>C++</p>
+                </div>
+                <div class="technical-skill">
+                    <i class="fas fa-chart-bar"></i>
+                    <p>Power BI</p>
+                </div>
+                <div class="technical-skill">
+                    <i class="fab fa-html5"></i>
+                    <p>HTML</p>
+                </div>
+                <div class="technical-skill">
+                    <i class="fab fa-css3-alt"></i>
+                    <p>CSS</p>
+                </div>
+                <div class="technical-skill">
+                    <i class="fas fa-server"></i>
+                    <p>MySQL</p>
+                </div>
+            </div>
+        </div>
+        <!-- Soft Skills with Icons -->
+        <div class="skills-soft">
+            <h3>Soft Skills</h3>
+            <div class="skills-soft-grid">
+                <div class="soft-skill">
+                    <i class="fas fa-clock"></i>
+                    <p>Time Management</p>
+                </div>
+                <div class="soft-skill">
+                    <i class="fas fa-users"></i>
+                    <p>Communication & Teamwork</p>
+                </div>
+                <div class="soft-skill">
+                    <i class="fas fa-comments"></i>
+                    <p>Clarity in Explanation</p>
+                </div>
+                <div class="soft-skill">
+                    <i class="fas fa-lightbulb"></i>
+                    <p>Problem-Solving</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+   <!-- Updated Certifications Section -->
+<section id="certifications">
+    <h2>Certifications</h2>
+    <div class="certifications-grid">
+        <div class="certification-card">
+            <h3>Python Essentials 1</h3>
+            <p>Cisco Network Academy</p>
+        </div>
+        <div class="certification-card">
+            <h3>Data Analytics Essentials</h3>
+            <p>Cisco Networking Academy</p>
+        </div>
+        <div class="certification-card">
+            <h3>SQL (Intermediate)</h3>
+            <p>HackerRank</p>
+        </div>
+        <div class="certification-card">
+            <h3>Introduction to Data Analytics</h3>
+            <p>IBM</p>
+        </div>
+    </div>
+</section>
+    <!-- Contact Section -->
+    <section id="contact">
+        <h2>Contact Me</h2>
+        <form id="contact-form">
+            <input type="text" placeholder="Name" required>
+            <input type="email" placeholder="Email" required>
+            <textarea placeholder="Your Message" required></textarea>
+            <button type="submit" class="btn">Send <i class="fas fa-paper-plane"></i></button>
+        </form>
+        <div class="contact-info">
+            <p><i class="fas fa-envelope"></i> hariniravichandran2003@gmail.com</p>
+            <p><i class="fas fa-phone"></i> +91 7868001054</p>
+            <p><i class="fab fa-linkedin"></i> <a href="https://linkedin.com/in/harini-r-508862297/">LinkedIn</a> | 
+               <i class="fab fa-github"></i> <a href="https://github.com/harini-ravichandran2003">GitHub</a></p>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <p>© 2025 Harini R. All Rights Reserved.</p>
+    </footer>
+
+    <!-- Inline JavaScript -->
+    <script>
+        // Smooth Scrolling
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+
+        // Form Submission Alert
+        document.getElementById('contact-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            alert('Thank you for your message! I will get back to you soon.');
+            this.reset();
+        });
+
+        // Scroll Animation for Sections
+        const sections = document.querySelectorAll('section');
+        const observer = new IntersectionObserver(entries => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, { threshold: 0.1 });
+
+        sections.forEach(section => observer.observe(section));
+    </script>
+</body>
+</html>
